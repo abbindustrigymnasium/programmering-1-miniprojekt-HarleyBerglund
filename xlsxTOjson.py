@@ -19,6 +19,7 @@ for i in range(0, len(data[sheetName])):
     })
 data_list = {'intents': data_list} # Converting to required object
 j = json.dumps(data_list)
+string.replace("\u00f6Q", ö),
 # Write to file
-with open('DB.json', 'w') as f:
+with open('DB_test2.json', 'w') as f:
     f.write(j)
