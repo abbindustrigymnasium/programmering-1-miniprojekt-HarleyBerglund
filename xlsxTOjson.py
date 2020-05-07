@@ -13,7 +13,7 @@ for i in range(0, len(data[sheetName])):
         'livsmedelsnummer' : data[sheetName][i][1],
         'kolhydrater' : data[sheetName][i][2],
         'fett' : data[sheetName][i][3],
-        'fibrer' : data[sheetName][i][4]
+        'fibrer' : data[sheetName][i][4],
         'alkohol' : data[sheetName][i][5]
 
     })
