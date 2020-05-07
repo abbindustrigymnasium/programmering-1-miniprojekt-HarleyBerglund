@@ -15,11 +15,11 @@ for i in range(0, len(data[sheetName])):
         'fett' : data[sheetName][i][3],
         'fibrer' : data[sheetName][i][4],
         'alkohol' : data[sheetName][i][5]
-
+        
     })
 data_list = {'intents': data_list} # Converting to required object
-j = json.dumps(data_list)
-string.replace("\u00f6Q", ö),
+j = json.dumps(data_list, indent=4)
+
 # Write to file
-with open('DB_test2.json', 'w') as f:
+with open('DB.json', 'w') as f:
     f.write(j)
