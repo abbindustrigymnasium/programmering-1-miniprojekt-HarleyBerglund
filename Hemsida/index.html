@@ -9,49 +9,16 @@
     <meta charset="utf-8">
     <title>Kolhydratsräknare</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
-    <!-- <script type="text/javascript" src="getData.js"></script> -->
+    <script type="text/javascript" src="getData.js"></script>
 
     <script>
-        $(function () {
-
-
-var people = [];
-
-$.getJSON('DB.json', function (data) {
-    $.each(data.person, function (i, f) {
-        var tblRow = "<tr>" + "<td>" + f.namn + "</td>" +
-            "<td>" + f.livsmedelsnummer + "</td>" + "<td>" + f.kolhydrater + "</td>" + "<td>" + f.fett + 
-            "</td>" + "</tr>" + f.fibrer + "</td>" + "</tr>"+ f.alkohol + "</td>" + "</tr>"
-        $(tblRow).appendTo("#userdata tbody");
-    });
-
-});
-
-});
+        
     </script>
 
 </head>
 
 <body style="background-color:grey;">
 
-    <div class="wrapper">
-        <div class="profile">
-            <table id="userdata" border="2">
-                <thead>
-                    <th>Produktnamn</th>
-                    <th>Livsmedelsnummer</th>
-                    <th>Kolhydrater</th>
-                    <th>Fett</th>
-                    <th>Fibrer</th>
-                    <th>Alkohol</th>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-
-        </div>
-    </div>
 
 
 </body>
