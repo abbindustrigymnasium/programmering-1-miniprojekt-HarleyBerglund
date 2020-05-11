@@ -11,6 +11,8 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
     <script type="text/javascript" src="Data.js"></script>
     <script type="text/javascript" src="Functions.js"></script>
+    <script type="text/javascript" src="Keys.js"></script>
+
 </head>
 
 <body>
@@ -33,21 +35,50 @@
             //console.log(input.value);
             var inputVal = (input.value);
             var res = inputVal.toLowerCase();                           //Takes the value from the searchbox and makes all letters to lowercase
-            finalSearch = (capitalizeFirstLetter(res));                 //Sets the first letter in the search results to uppercase
+            FINALSEARCH = (capitalizeFirstLetter(res));                 //Sets the first letter in the search results to uppercase
 
             var searched = -1;
             for (var i = 0; i < LIVSMEDEL.length; i++) {
-                if (LIVSMEDEL[i].namn == inputVal) {                        //searched is set to the index of the element
+                if (LIVSMEDEL[i].namn == FINALSEARCH) {                        //searched is set to the index of the element
                     searched = i;
                     break;
                 }
             }
             console.log(searched);
             console.log(JSON.parse(livsmedel)[searched].kolhydrater);
+
+
+            KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
+            FETT = (JSON.parse(livsmedel)[searched].fett);
+            FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
+            ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
+
+            document.getElementById("Namn").innerHTML = FINALSEARCH;
+            document.getElementById("Kolhydrater").innerHTML = KOLHYDRATER;
+            document.getElementById("Fett").innerHTML = FETT;
+            document.getElementById("Fibrer").innerHTML = FIBRER;
+            document.getElementById("Alkohol").innerHTML = ALKOHOL;
         }
     </script>
 
-
+<div class="w3-container">  
+    <div class="w3-card-4" style="width:50%;">
+      <header class="w3-container w3-blue">
+        <p id="Namn"></p>
+      </header>
+  
+      <div class="w3-container">
+        <p>Kolhydrater:   <span id="Kolhydrater"></span></p>
+        <p>Fett:   <span id="Fett"></span></p>
+        <p>Fibrer:   <span id="Fibrer"></span></p>
+        <p>Alkohol:   <span id="Alkohol"></span></p>
+      </div>
+  
+      <footer class="w3-container w3-blue">
+        <h5>Footer</h5>
+      </footer>
+    </div>
+  </div>
 
 </body>
 
