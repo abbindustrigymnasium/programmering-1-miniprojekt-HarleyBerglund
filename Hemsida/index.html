@@ -2,22 +2,50 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-
-
-    <meta charset="utf-8">
     <title>Kolhydratsräknare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
-    <script type="text/javascript" src="getData.js"></script>
-
-    <script>
-        
-    </script>
-
+    <script type="text/javascript" src="Data.js"></script>
+    <script type="text/javascript" src="Functions.js"></script>
 </head>
 
-<body style="background-color:grey;">
+<body>
+    <div class="wrap">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?" id="searchResult">              <!--Searchfield-->
+            <input type="submit" class="searchButton" onclick="searchName()">                                                   <!--When the button is pressed it runs the searchName function-->
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <script>
+        LIVSMEDEL = (JSON.parse(livsmedel));                    //Parsing the string object into a json object
+
+        function searchName() {
+            var input = document.getElementById('searchResult');                //Fetches the search result
+            //console.log(input.value);
+            var inputVal = (input.value);
+            var res = inputVal.toLowerCase();                           //Takes the value from the searchbox and makes all letters to lowercase
+            finalSearch = (capitalizeFirstLetter(res));                 //Sets the first letter in the search results to uppercase
+
+            var searched = -1;
+            for (var i = 0; i < LIVSMEDEL.length; i++) {
+                if (LIVSMEDEL[i].namn == inputVal) {                        //searched is set to the index of the element
+                    searched = i;
+                    break;
+                }
+            }
+            console.log(searched);
+            console.log(JSON.parse(livsmedel)[searched].kolhydrater);
+        }
+    </script>
 
 
 
