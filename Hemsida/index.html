@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="utf-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
@@ -16,10 +17,18 @@
 </head>
 
 <body>
+    <div class="topnav" align="center" class="wrapper">
+        <h1>
+            KOLHYDRATSRÄKNARE
+        </h1>
+
+    </div>
     <div class="wrap">
         <div class="search">
-            <input type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?" id="searchResult">              <!--Searchfield-->
-            <input type="submit" class="searchButton" onclick="searchName()">                                                   <!--When the button is pressed it runs the searchName function-->
+            <input type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?" id="searchResult">
+            <!--Searchfield-->
+            <input type="submit" class="searchButton" onclick="searchName()">
+            <!--When the button is pressed it runs the searchName function-->
         </div>
     </div>
     <br>
@@ -28,18 +37,18 @@
     <br>
 
     <script>
-        LIVSMEDEL = (JSON.parse(livsmedel));                    //Parsing the string object into a json object
+        LIVSMEDEL = (JSON.parse(livsmedel)); //Parsing the string object into a json object
 
         function searchName() {
-            var input = document.getElementById('searchResult');                //Fetches the search result
+            var input = document.getElementById('searchResult'); //Fetches the search result
             //console.log(input.value);
             var inputVal = (input.value);
-            var res = inputVal.toLowerCase();                           //Takes the value from the searchbox and makes all letters to lowercase
-            FINALSEARCH = (capitalizeFirstLetter(res));                 //Sets the first letter in the search results to uppercase
+            var res = inputVal.toLowerCase(); //Takes the value from the searchbox and makes all letters to lowercase
+            FINALSEARCH = (capitalizeFirstLetter(res)); //Sets the first letter in the search results to uppercase
 
             var searched = -1;
             for (var i = 0; i < LIVSMEDEL.length; i++) {
-                if (LIVSMEDEL[i].namn == FINALSEARCH) {                        //searched is set to the index of the element
+                if (LIVSMEDEL[i].namn == FINALSEARCH) { //searched is set to the index of the element
                     searched = i;
                     break;
                 }
@@ -48,37 +57,76 @@
             console.log(JSON.parse(livsmedel)[searched].kolhydrater);
 
 
-            KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
-            FETT = (JSON.parse(livsmedel)[searched].fett);
-            FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
-            ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
+            var KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
+            var FETT = (JSON.parse(livsmedel)[searched].fett);
+            var FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
+            var ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
 
             document.getElementById("Namn").innerHTML = FINALSEARCH;
             document.getElementById("Kolhydrater").innerHTML = KOLHYDRATER;
             document.getElementById("Fett").innerHTML = FETT;
             document.getElementById("Fibrer").innerHTML = FIBRER;
             document.getElementById("Alkohol").innerHTML = ALKOHOL;
+
+            if (FETT > 10) {
+                document.getElementById("Notes").innerHTML = "Ta insulin i flera omgångar eller förlängd bolus!";
+            }
+            else if (FIBRER > 5) {
+                document.getElementById("Notes").innerHTML = "Bra val, mycket fibrer kan behöva förlängd bolus!";
+            }
+            else if (ALKOHOL > 4) {
+                document.getElementById("Notes").innerHTML = "Var försiktig när du dricker alkohol!";
+            }
+            else {
+                document.getElementById("Notes").innerHTML = "Ta insulin som vanligt!";
+            }
+
         }
     </script>
+    <div id="cardDIV">
+        <div class="w3-container">
+            <div class="w3-card-4" style="width:50%; margin: auto;">
+                <header class="w3-container w3-blue">
+                    <p id="text1">Namn: <span id="Namn"></span></p>
+                </header>
 
-<div class="w3-container">  
-    <div class="w3-card-4" style="width:50%;">
-      <header class="w3-container w3-blue">
-        <p id="Namn"></p>
-      </header>
-  
-      <div class="w3-container">
-        <p>Kolhydrater:   <span id="Kolhydrater"></span></p>
-        <p>Fett:   <span id="Fett"></span></p>
-        <p>Fibrer:   <span id="Fibrer"></span></p>
-        <p>Alkohol:   <span id="Alkohol"></span></p>
-      </div>
-  
-      <footer class="w3-container w3-blue">
-        <h5>Footer</h5>
-      </footer>
+                <div class="w3-container">
+                    <p id="text2">Kolhydrater (g):    <span id="Kolhydrater"></span></p>
+                    <p id="text2">Fett (g):    <span id="Fett"></span></p>
+                    <p id="text2">Fibrer (g):    <span id="Fibrer"></span></p>
+                    <p id="text2">Alkohol (%):    <span id="Alkohol"></span></p>
+                </div>
+
+                <footer class="w3-container w3-blue">
+                    <p id="text2">OBS: <span id="Notes"></span></p>
+                </footer>
+            </div>
+        </div>
     </div>
-  </div>
+
+
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="logo">
+                <a href="#" class="nav-link">
+                    <span class="link-text logo-text">Menu</span>
+                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="angle-double-right"
+                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                        class="svg-inline--fa fa-angle-double-right fa-w-14 fa-5x">
+                        <g class="fa-group">
+                            <path fill="currentColor"
+                                d="M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z"
+                                class="fa-secondary"></path>
+                            <path fill="currentColor"
+                                d="M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z"
+                                class="fa-primary"></path>
+                        </g>
+                    </svg>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
 
 </body>
 
