@@ -25,12 +25,27 @@
     </div>
     <div class="wrap">
         <div class="search">
-            <input type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?" id="searchResult">
+            <input list="SearchItems" type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?"
+                id="searchResult">
             <!--Searchfield-->
             <input type="submit" class="searchButton" onclick="searchName()">
             <!--When the button is pressed it runs the searchName function-->
         </div>
     </div>
+    <datalist id="SearchItems">
+    </datalist>
+    <script>
+        LIVSMEDEL = (JSON.parse(livsmedel));
+        
+        var cars = LIVSMEDEL[0].namn;
+        var text = "";
+        var i;
+        for (i = 0; i < cars.length; i++) {
+            text += cars[i] + "<option>";
+        }
+        document.getElementById("SearchItems").innerHTML = text;
+    </script>
+
     <br>
     <br>
     <br>
@@ -53,36 +68,33 @@
                     break;
                 }
             }
-            console.log(searched);
-            console.log(JSON.parse(livsmedel)[searched].kolhydrater);
-
+            //console.log(searched);
 
             var KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
-            var FETT = (JSON.parse(livsmedel)[searched].fett);
+            var FETT = (JSON.parse(livsmedel)[searched].fett); //Using the index of the json objekt to get the values
             var FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
             var ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
 
             document.getElementById("Namn").innerHTML = FINALSEARCH;
             document.getElementById("Kolhydrater").innerHTML = KOLHYDRATER;
-            document.getElementById("Fett").innerHTML = FETT;
+            document.getElementById("Fett").innerHTML = FETT; //sending the values to the card
             document.getElementById("Fibrer").innerHTML = FIBRER;
             document.getElementById("Alkohol").innerHTML = ALKOHOL;
 
             if (FETT > 10) {
                 document.getElementById("Notes").innerHTML = "Ta insulin i flera omgångar eller förlängd bolus!";
-            }
-            else if (FIBRER > 5) {
-                document.getElementById("Notes").innerHTML = "Bra val, mycket fibrer kan behöva förlängd bolus!";
-            }
-            else if (ALKOHOL > 4) {
+            } else if (FIBRER > 5) {
+                document.getElementById("Notes").innerHTML =
+                    "Bra val, mycket fibrer kan behöva förlängd bolus!"; //Important notes for the user based on what they search
+            } else if (ALKOHOL > 4) {
                 document.getElementById("Notes").innerHTML = "Var försiktig när du dricker alkohol!";
-            }
-            else {
+            } else {
                 document.getElementById("Notes").innerHTML = "Ta insulin som vanligt!";
             }
 
         }
     </script>
+
     <div id="cardDIV">
         <div class="w3-container">
             <div class="w3-card-4" style="width:50%; margin: auto;">
@@ -91,14 +103,17 @@
                 </header>
 
                 <div class="w3-container">
-                    <p id="text2">Kolhydrater (g):    <span id="Kolhydrater"></span></p>
-                    <p id="text2">Fett (g):    <span id="Fett"></span></p>
-                    <p id="text2">Fibrer (g):    <span id="Fibrer"></span></p>
-                    <p id="text2">Alkohol (%):    <span id="Alkohol"></span></p>
+                    <p id="text2">Kolhydrater (g): <span id="Kolhydrater"></span></p>
+                    <p id="text2">Fett (g): <span id="Fett"></span></p>
+                    <p id="text2">Fibrer (g): <span id="Fibrer"></span></p>
+                    <p id="text2">Alkohol (%): <span id="Alkohol"></span></p>
                 </div>
 
                 <footer class="w3-container w3-blue">
-                    <p id="text2">OBS: <span id="Notes"></span></p>
+                    <div>
+                        <p class="footer">OBS: <span id="Notes"></span></p>
+                        <button class="Button1" style="float: right;">+</button>
+                    </div>
                 </footer>
             </div>
         </div>
@@ -124,6 +139,7 @@
                     </svg>
                 </a>
             </li>
+
 
         </ul>
     </nav>
