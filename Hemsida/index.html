@@ -3,6 +3,7 @@
 
 <head>
     <title>Kolhydratsräknare</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
@@ -11,6 +12,7 @@
     <meta charset="utf-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
     <script type="text/javascript" src="Data.js"></script>
+    <script type="text/javascript" src="Names.js"></script>
     <script type="text/javascript" src="Functions.js"></script>
     <script type="text/javascript" src="Keys.js"></script>
 
@@ -32,12 +34,9 @@
             <!--When the button is pressed it runs the searchName function-->
         </div>
     </div>
-    <datalist id="SearchItems">
-    </datalist>
+    <datalist id="SearchItems"></datalist>
     <script>
-        LIVSMEDEL = (JSON.parse(livsmedel));
-        
-        var cars = LIVSMEDEL[0].namn;
+        var cars = (JSON.parse(NAMES));
         var text = "";
         var i;
         for (i = 0; i < cars.length; i++) {
@@ -53,6 +52,10 @@
 
     <script>
         LIVSMEDEL = (JSON.parse(livsmedel)); //Parsing the string object into a json object
+        var KOLHYDRATER;
+        var FETT;
+        var FIBRER;
+        var ALKOHOL;
 
         function searchName() {
             var input = document.getElementById('searchResult'); //Fetches the search result
@@ -70,10 +73,10 @@
             }
             //console.log(searched);
 
-            var KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
-            var FETT = (JSON.parse(livsmedel)[searched].fett); //Using the index of the json objekt to get the values
-            var FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
-            var ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
+            KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
+            FETT = (JSON.parse(livsmedel)[searched].fett); //Using the index of the json objekt to get the values
+            FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
+            ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
 
             document.getElementById("Namn").innerHTML = FINALSEARCH;
             document.getElementById("Kolhydrater").innerHTML = KOLHYDRATER;
@@ -81,8 +84,8 @@
             document.getElementById("Fibrer").innerHTML = FIBRER;
             document.getElementById("Alkohol").innerHTML = ALKOHOL;
 
-            if (FETT > 10) {
-                document.getElementById("Notes").innerHTML = "Ta insulin i flera omgångar eller förlängd bolus!";
+            if (FETT > 8) {
+                document.getElementById("Notes").innerHTML = "Förlängd bolus eller uppdelade av dosen rekomenderas!";
             } else if (FIBRER > 5) {
                 document.getElementById("Notes").innerHTML =
                     "Bra val, mycket fibrer kan behöva förlängd bolus!"; //Important notes for the user based on what they search
@@ -91,8 +94,21 @@
             } else {
                 document.getElementById("Notes").innerHTML = "Ta insulin som vanligt!";
             }
+        }
+        var CARBS = 0;
+
+        function addCarbs() {
+            CARBS += KOLHYDRATER;
+            document.getElementById("Carbs").innerHTML = CARBS;
+        }
+        function insulin() {
+            var kvot = document.getElementById("KVOT").value;
+            x = CARBS/kvot; 
+            document.getElementById("Insulin").innerHTML = x;
 
         }
+
+        
     </script>
 
     <div id="cardDIV">
@@ -112,7 +128,7 @@
                 <footer class="w3-container w3-blue">
                     <div>
                         <p class="footer">OBS: <span id="Notes"></span></p>
-                        <button class="Button1" style="float: right;">+</button>
+                        <button class="Button1" style="float: right;" onclick="addCarbs()">+</button>
                     </div>
                 </footer>
             </div>
@@ -139,8 +155,11 @@
                     </svg>
                 </a>
             </li>
-
-
+            <p class="link-text">Kolhydrater: <span id="Carbs"></span></p>
+            <br>
+            <input oninput="insulin()" type="number" class="link-text" id="KVOT" placeholder="Insulinkvot:">
+            <br>
+            <p class="link-text">Insulin: <span id="Insulin"></span></p>
         </ul>
     </nav>
 
