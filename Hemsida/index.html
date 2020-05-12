@@ -3,23 +3,22 @@
 
 <head>
     <title>Kolhydratsräknare</title>
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">                  <!--Favicon-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">                             <!--Including both css files-->
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta charset="utf-8">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>      <!--Including jQuery-->
     <script type="text/javascript" src="Data.js"></script>
-    <script type="text/javascript" src="Names.js"></script>
+    <script type="text/javascript" src="Names.js"></script>                     <!--Including the data files-->
     <script type="text/javascript" src="Functions.js"></script>
-    <script type="text/javascript" src="Keys.js"></script>
+    <script type="text/javascript" src="Keys.js"></script>                      <!--Including some other js files-->
 
 </head>
 
 <body>
-    <div class="topnav" align="center" class="wrapper">
+    <div class="topnav" align="center" class="wrapper">             <!--Toppnav-->
         <h1>
             KOLHYDRATSRÄKNARE
         </h1>
@@ -27,22 +26,19 @@
     </div>
     <div class="wrap">
         <div class="search">
-            <input list="SearchItems" type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?"
-                id="searchResult">
-            <!--Searchfield-->
-            <input type="submit" class="searchButton" onclick="searchName()">
-            <!--When the button is pressed it runs the searchName function-->
+            <input list="SearchItems" type="text" class="searchTerm" placeholder="Vad vill du veta innehållet på?" id="searchResult">      <!--Searchbox, which has a list with the different foods-->
+            <input type="submit" class="searchButton" onclick="searchName()">               <!--When the button is pressed it runs the searchName() function-->
         </div>
     </div>
-    <datalist id="SearchItems"></datalist>
+    <datalist id="SearchItems"></datalist>          <!--The datalist that the different foods are inserted in-->
     <script>
-        var cars = (JSON.parse(NAMES));
+        var x = (JSON.parse(NAMES));             //Takes the Json string and turns it into a json objekts
         var text = "";
         var i;
-        for (i = 0; i < cars.length; i++) {
-            text += cars[i] + "<option>";
+        for (i = 0; i < x.length; i++) { 
+            text += x[i] + "<option>";
         }
-        document.getElementById("SearchItems").innerHTML = text;
+        document.getElementById("SearchItems").innerHTML = text;            //Sends the searchable items to the datalist
     </script>
 
     <br>
@@ -53,7 +49,7 @@
     <script>
         LIVSMEDEL = (JSON.parse(livsmedel)); //Parsing the string object into a json object
         var KOLHYDRATER;
-        var FETT;
+        var FETT;                       //Defineing the variables
         var FIBRER;
         var ALKOHOL;
 
@@ -74,13 +70,13 @@
             //console.log(searched);
 
             KOLHYDRATER = (JSON.parse(livsmedel)[searched].kolhydrater);
-            FETT = (JSON.parse(livsmedel)[searched].fett); //Using the index of the json objekt to get the values
+            FETT = (JSON.parse(livsmedel)[searched].fett);                      //Using the index of the json objekt to get the values
             FIBRER = (JSON.parse(livsmedel)[searched].fibrer);
             ALKOHOL = (JSON.parse(livsmedel)[searched].alkohol);
 
             document.getElementById("Namn").innerHTML = FINALSEARCH;
             document.getElementById("Kolhydrater").innerHTML = KOLHYDRATER;
-            document.getElementById("Fett").innerHTML = FETT; //sending the values to the card
+            document.getElementById("Fett").innerHTML = FETT;                   //sending the values to the card
             document.getElementById("Fibrer").innerHTML = FIBRER;
             document.getElementById("Alkohol").innerHTML = ALKOHOL;
 
@@ -88,7 +84,7 @@
                 document.getElementById("Notes").innerHTML = "Förlängd bolus eller uppdelade av dosen rekomenderas!";
             } else if (FIBRER > 5) {
                 document.getElementById("Notes").innerHTML =
-                    "Bra val, mycket fibrer kan behöva förlängd bolus!"; //Important notes for the user based on what they search
+                    "Bra val, mycket fibrer kan behöva förlängd bolus!";                                        //Important notes for the user based on what the food contains
             } else if (ALKOHOL > 4) {
                 document.getElementById("Notes").innerHTML = "Var försiktig när du dricker alkohol!";
             } else {
@@ -97,12 +93,12 @@
         }
         var CARBS = 0;
 
-        function addCarbs() {
+        function addCarbs() {                                           //Adding the carbs to insulin calculation
             CARBS += KOLHYDRATER;
             document.getElementById("Carbs").innerHTML = CARBS;
         }
         function insulin() {
-            var kvot = document.getElementById("KVOT").value;
+            var kvot = document.getElementById("KVOT").value;                   //Calculating the required insluin based on a insulin quota
             x = CARBS/kvot; 
             document.getElementById("Insulin").innerHTML = x;
 
@@ -111,24 +107,24 @@
         
     </script>
 
-    <div id="cardDIV">
+    <div id="cardDIV">                                                  <!--The card component witch are filled in when a food is searched-->
         <div class="w3-container">
             <div class="w3-card-4" style="width:50%; margin: auto;">
                 <header class="w3-container w3-blue">
-                    <p id="text1">Namn: <span id="Namn"></span></p>
+                    <p id="text1">Namn: <span id="Namn"></span></p>                 <!--Displaying the name of the searched food-->        
                 </header>
 
                 <div class="w3-container">
                     <p id="text2">Kolhydrater (g): <span id="Kolhydrater"></span></p>
-                    <p id="text2">Fett (g): <span id="Fett"></span></p>
+                    <p id="text2">Fett (g): <span id="Fett"></span></p>                     <!--Displaying the values of the searched food-->   
                     <p id="text2">Fibrer (g): <span id="Fibrer"></span></p>
                     <p id="text2">Alkohol (%): <span id="Alkohol"></span></p>
                 </div>
 
                 <footer class="w3-container w3-blue">
                     <div>
-                        <p class="footer">OBS: <span id="Notes"></span></p>
-                        <button class="Button1" style="float: right;" onclick="addCarbs()">+</button>
+                        <p class="footer">OBS: <span id="Notes"></span></p>                               <!--Displays the important note-->   
+                        <button class="Button1" style="float: right;" onclick="addCarbs()">+</button>       <!--Runs the function addCarbs, which takes the kolhydrat variable and uses it in the calculation-->   
                     </div>
                 </footer>
             </div>
@@ -155,11 +151,11 @@
                     </svg>
                 </a>
             </li>
-            <p class="link-text">Kolhydrater: <span id="Carbs"></span></p>
+            <p class="link-text">Kolhydrater: <span id="Carbs"></span></p>              
             <br>
-            <input oninput="insulin()" type="number" class="link-text" id="KVOT" placeholder="Insulinkvot:">
+            <input oninput="insulin()" type="number" class="link-text" id="KVOT" placeholder="Insulinkvot:">            <!--The insulin quota, and the trigger which triggers the inslulin calculating function-->   
             <br>
-            <p class="link-text">Insulin: <span id="Insulin"></span></p>
+            <p class="link-text">Insulin: <span id="Insulin"></span></p>                <!--Displaying the final insulin amount-->   
         </ul>
     </nav>
 

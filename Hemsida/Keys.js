@@ -1,4 +1,4 @@
-document.addEventListener('keypress', function (event) {
+document.addEventListener('keypress', function (event) {                          //When Enter is pressed it runs the search name function, which search in the Json data
     if (event.defaultPrevented) {
         return;
     }

@@ -1,3 +1,5 @@
+//Thi is a Json which contains the foods that are searchable
+
 var NAMES =  `[
     "Livsmedelsnamn",
     "Nöt talg",

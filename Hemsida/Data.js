@@ -1,3 +1,5 @@
+//The Json food data
+
 let livsmedel = `[
     {
         "namn": "Nöt talg",
